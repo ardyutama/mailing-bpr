@@ -16,9 +16,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import {Link} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import InboxIcon from "@mui/icons-material/Inbox";
-
+import DraftsIcon from "@mui/icons-material/Drafts";
 
 const drawerWidth = 240;
 
@@ -102,10 +102,10 @@ export default function MiniDrawer(props) {
   return (
       <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          <AppBar position="fixed" open={open}>
+          <AppBar position="fixed" open={open} color="grey">
               <Toolbar>
                   <IconButton
-                      color="inherit"
+                      color="primary"
                       aria-label="open drawer"
                       onClick={handleDrawerOpen}
                       edge="start"
@@ -116,11 +116,7 @@ export default function MiniDrawer(props) {
                   >
                       <MenuIcon />
                   </IconButton>
-                  <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="h6" noWrap component="div">
-                          Surat Menyurat
-                      </Typography>
-                  </Box>
+                  <Box sx={{ flexGrow: 1 }}></Box>
                   <Box sx={{ flexGrow: 0 }}>
                       <IconButton sx={{ p: 0 }}>
                           <Avatar
@@ -143,7 +139,7 @@ export default function MiniDrawer(props) {
               </DrawerHeader>
               <Divider />
               <List>
-                  <Link to="/">
+                  <Link to="/" underline="none">
                       <ListItem button key="Inbox">
                           <ListItemIcon>
                               <InboxIcon />
@@ -151,9 +147,11 @@ export default function MiniDrawer(props) {
                           <ListItemText>Inbox</ListItemText>
                       </ListItem>
                   </Link>
-                  <Link to="/outward">
+                  <Link to="/outward" underline="none">
                       <ListItem button key="Outward">
-                          <ListItemIcon></ListItemIcon>
+                          <ListItemIcon>
+                              <DraftsIcon />
+                          </ListItemIcon>
                           <ListItemText primary="Outward" />
                       </ListItem>
                   </Link>
@@ -162,7 +160,7 @@ export default function MiniDrawer(props) {
           </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 6 }}>
               <DrawerHeader />
-              {props.children}
+              <Outlet />
           </Box>
       </Box>
   );

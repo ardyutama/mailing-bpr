@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "first_name": "Dudley",
+        "last_name": "Pindell",
+        "roles": { "id": 2, "name": "penyelia" },
+        "departement": { "id": 1, "name": "IT" }
+    },
+    {
+        "id": 2,
+        "first_name": "Fanny",
+        "last_name": "Fishwick",
+        "roles": { "id": 1, "name": "pimpinan sub divisi" },
+        "departement": { "id": 3, "name": "Umum" }
+    },
+    {
+        "id": 3,
+        "first_name": "Findley",
+        "last_name": "Askey",
+        "roles": { "id": 2, "name": "penyelia" },
+        "departement": { "id": 1, "name": "IT" }
+    },
+    {
+        "id": 4,
+        "first_name": "Jesse",
+        "last_name": "Isgate",
+        "roles": { "id": 1, "name": "pimpinan sub divisi" },
+        "departement": { "id": 4, "name": "Kesekretariatan" }
+    },
+    {
+        "id": 5,
+        "first_name": "Jerrylee",
+        "last_name": "Seelbach",
+        "roles": { "id": 3, "name": "staff" },
+        "departement": { "id": 3, "name": "Umum" }
+    },
+    {
+        "id": 6,
+        "first_name": "Jilli",
+        "last_name": "Antonin",
+        "roles": { "id": 3, "name": "staff" },
+        "departement": { "id": 4, "name": "Kesekretariatan" }
+    },
+    {
+        "id": 7,
+        "first_name": "Benjamin",
+        "last_name": "Tellenbach",
+        "roles": { "id": 2, "name": "penyelia" },
+        "departement": { "id": 5, "name": "Public Relation" }
+    },
+    {
+        "id": 8,
+        "first_name": "Tina",
+        "last_name": "Gierardi",
+        "roles": { "id": 3, "name": "staff" },
+        "departement": { "id": 4, "name": "Kesekretariatan" }
+    },
+    {
+        "id": 9,
+        "first_name": "Lida",
+        "last_name": "Holdworth",
+        "roles": { "id": 1, "name": "pimpinan sub divisi" },
+        "departement": { "id": 4, "name": "Kesekretariatan" }
+    },
+    {
+        "id": 10,
+        "first_name": "Cecil",
+        "last_name": "Scafe",
+        "roles": { "id": 2, "name": "penyelia" },
+        "departement": { "id": 3, "name": "Umum" }
+    }
+]
