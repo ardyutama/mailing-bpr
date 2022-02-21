@@ -10,7 +10,7 @@ import {
 import Pagination from "@mui/material/Pagination";
 import CustomDetailMail from "../../Global/CustomDetailMail";
 import approve_mail from "../../_mocks_/approve_mail.json";
-import employee_data from "../../_mocks_/employee.json";
+// import employee_data from "/employee.json";
 import tipe_surat from "../../_mocks_/tipe_surat.json";
 function CustomPagination() {
     const apiRef = useGridApiContext();
@@ -54,7 +54,7 @@ const Inbox = () => {
     // FIXME: Benerin Fetch masih gak bener
     useEffect(() => {
         fetchDataMail(approve_mail);
-        fetchDataEmployee(employee_data);
+        // fetchDataEmployee(employee_data);
         fetchTipeSurat(tipe_surat);
         // console.log(dataRow);
     });

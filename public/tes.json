@@ -1,0 +1,1126 @@
+{
+  "uuid": "34c6aee3-0720-4525-9536-ab1f704cc69d",
+  "lastMigration": 19,
+  "name": "1Password Connect",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "2463c144-057c-4247-aae9-9c2b30a26584",
+      "documentation": "Retrieve a list of API Requests that have been made.",
+      "method": "get",
+      "endpoint": "activity",
+      "responses": [
+        {
+          "uuid": "9b38ec58-578d-47c3-9df7-615efe166a7c",
+          "body": "[\n  {\n    \"action\": \"{{oneOf (array 'READ' 'CREATE' 'UPDATE' 'DELETE')}}\",\n    \"actor\": {\n      \"account\": \"\",\n      \"id\": \"{{faker 'random.uuid'}}\",\n      \"jti\": \"\",\n      \"requestIp\": \"\",\n      \"userAgent\": \"\"\n    },\n    \"requestId\": \"{{faker 'random.uuid'}}\",\n    \"resource\": {\n      \"item\": {\n        \"id\": \"\"\n      },\n      \"itemVersion\": {{faker 'random.number'}},\n      \"type\": \"{{oneOf (array 'ITEM' 'VAULT')}}\",\n      \"vault\": {\n        \"id\": \"\"\n      }\n    },\n    \"result\": \"{{oneOf (array 'SUCCESS' 'DENY')}}\",\n    \"timestamp\": \"{{faker 'date.recent' 365}}\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Range",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "690299a5-26ea-487a-ba55-caaf3124fa28",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ed1f1115-310e-40b5-bef3-e3f46edf0c62",
+      "documentation": "Get state of the server and its dependencies.",
+      "method": "get",
+      "endpoint": "health",
+      "responses": [
+        {
+          "uuid": "52da97e8-f35d-47f8-a67a-bdfcf0cb4fab",
+          "body": "{\n  \"dependencies\": [\n    {\n      \"message\": \"\",\n      \"service\": \"\",\n      \"status\": \"\"\n    }\n  ],\n  \"name\": \"\",\n  \"version\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a021c382-652c-4e90-baf9-b96cd8ac1569",
+      "documentation": "Ping the server for liveness",
+      "method": "get",
+      "endpoint": "heartbeat",
+      "responses": [
+        {
+          "uuid": "a2831669-f856-48cc-a38e-8023cfd59c38",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "42235247-24d4-4206-8e78-e9208b425bf2",
+      "documentation": "Query server for exposed Prometheus metrics",
+      "method": "get",
+      "endpoint": "metrics",
+      "responses": [
+        {
+          "uuid": "294e99aa-16cf-416d-8f61-0328cc1b3916",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successfully returned Prometheus metrics",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e8f133ea-41d6-4ec3-b714-1212e8984124",
+      "documentation": "Get all Vaults",
+      "method": "get",
+      "endpoint": "vaults",
+      "responses": [
+        {
+          "uuid": "dd84fe07-69ab-4e97-8a37-b3dbfc5f939d",
+          "body": "[\n  {\n    \"attributeVersion\": {{faker 'random.number'}},\n    \"contentVersion\": {{faker 'random.number'}},\n    \"createdAt\": \"{{faker 'date.recent' 365}}\",\n    \"description\": \"\",\n    \"id\": \"\",\n    \"items\": {{faker 'random.number'}},\n    \"name\": \"\",\n    \"type\": \"{{oneOf (array 'USER_CREATED' 'PERSONAL' 'EVERYONE' 'TRANSFER')}}\",\n    \"updatedAt\": \"{{faker 'date.recent' 365}}\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "637cf358-b5aa-445f-9bdb-8e5c76407cf1",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "051089c7-2e19-4cee-9bd1-f99f2fbe9dcf",
+      "documentation": "Get Vault details and metadata",
+      "method": "get",
+      "endpoint": "vaults/:vaultUuid",
+      "responses": [
+        {
+          "uuid": "9740c2ba-4e13-4c00-af83-21d122326049",
+          "body": "{\n  \"attributeVersion\": {{faker 'random.number'}},\n  \"contentVersion\": {{faker 'random.number'}},\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"id\": \"\",\n  \"items\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'USER_CREATED' 'PERSONAL' 'EVERYONE' 'TRANSFER')}}\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "24224061-cdf7-4438-870c-35ad8a037e70",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d1b58add-5e8d-4f19-b06a-4af73a90127d",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Unauthorized access",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "df33b2b2-e91c-4de6-a5e9-56819e129eda",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Vault not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7163fc92-e8f0-47b7-bf15-a37d0fef3adb",
+      "documentation": "Get all items for inside a Vault",
+      "method": "get",
+      "endpoint": "vaults/:vaultUuid/items",
+      "responses": [
+        {
+          "uuid": "3a480ed8-b3ad-4836-b55c-51be3ff3939a",
+          "body": "[\n  {\n    \"category\": \"{{oneOf (array 'LOGIN' 'PASSWORD' 'API_CREDENTIAL' 'SERVER' 'DATABASE' 'CREDIT_CARD' 'MEMBERSHIP' 'PASSPORT' 'SOFTWARE_LICENSE' 'OUTDOOR_LICENSE' 'SECURE_NOTE' 'WIRELESS_ROUTER' 'BANK_ACCOUNT' 'DRIVER_LICENSE' 'IDENTITY' 'REWARD_PROGRAM' 'DOCUMENT' 'EMAIL_ACCOUNT' 'SOCIAL_SECURITY_NUMBER' 'CUSTOM')}}\",\n    \"createdAt\": \"{{faker 'date.recent' 365}}\",\n    \"favorite\": {{faker 'random.boolean'}},\n    \"id\": \"\",\n    \"lastEditedBy\": \"\",\n    \"state\": \"{{oneOf (array 'ARCHIVED' 'DELETED')}}\",\n    \"tags\": [\n      \"\"\n    ],\n    \"title\": \"\",\n    \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n    \"urls\": [\n      {\n        \"href\": \"https://example.com\",\n        \"primary\": true\n      },\n      {\n        \"href\": \"https://example.org\"\n      }\n    ],\n    \"vault\": {\n      \"id\": \"\"\n    },\n    \"version\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6b0c14cd-80f7-4057-9af7-c59e7e12c509",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0b8ffea7-e287-45c9-a5dc-663832bdcf04",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Vault not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "621f3b01-46c7-48b8-978e-578e2c3fb90c",
+      "documentation": "Create a new Item",
+      "method": "post",
+      "endpoint": "vaults/:vaultUuid/items",
+      "responses": [
+        {
+          "uuid": "ab34ec2a-ffe1-4b4b-9462-395a1b5f4a95",
+          "body": "{\n  \"category\": \"{{oneOf (array 'LOGIN' 'PASSWORD' 'API_CREDENTIAL' 'SERVER' 'DATABASE' 'CREDIT_CARD' 'MEMBERSHIP' 'PASSPORT' 'SOFTWARE_LICENSE' 'OUTDOOR_LICENSE' 'SECURE_NOTE' 'WIRELESS_ROUTER' 'BANK_ACCOUNT' 'DRIVER_LICENSE' 'IDENTITY' 'REWARD_PROGRAM' 'DOCUMENT' 'EMAIL_ACCOUNT' 'SOCIAL_SECURITY_NUMBER' 'CUSTOM')}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"favorite\": {{faker 'random.boolean'}},\n  \"id\": \"\",\n  \"lastEditedBy\": \"\",\n  \"state\": \"{{oneOf (array 'ARCHIVED' 'DELETED')}}\",\n  \"tags\": [\n    \"\"\n  ],\n  \"title\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"urls\": [\n    {\n      \"href\": \"https://example.com\",\n      \"primary\": true\n    },\n    {\n      \"href\": \"https://example.org\"\n    }\n  ],\n  \"vault\": {\n    \"id\": \"\"\n  },\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8853daa9-d4a6-4234-95e6-fb0ab8442b0c",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Unable to create item due to invalid input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "61fcc2e0-030b-4296-85e5-5b4e530028f1",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b362ecb1-9dc0-4db3-899b-e3d868c69d59",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Unauthorized access",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3ffbc390-b67e-41d4-8d92-e26bb6ed2592",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bd0b757e-4dbe-4f83-8c6d-4b0cbfadee00",
+      "documentation": "Delete an Item",
+      "method": "delete",
+      "endpoint": "vaults/:vaultUuid/items/:itemUuid",
+      "responses": [
+        {
+          "uuid": "44802e6d-e807-4850-97c3-83435ea97d46",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Successfully deleted an item",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "74db1f5e-4957-4500-a22c-e78ddac97a43",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e9858817-9902-4222-b5de-b45572337438",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Unauthorized access",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4f82080e-973c-4223-9fbb-8d164e8676f7",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4468e80f-7c25-40a7-a470-d08184780641",
+      "documentation": "Get the details of an Item",
+      "method": "get",
+      "endpoint": "vaults/:vaultUuid/items/:itemUuid",
+      "responses": [
+        {
+          "uuid": "17fff807-a724-4dfb-9908-83dd68f91443",
+          "body": "{\n  \"category\": \"{{oneOf (array 'LOGIN' 'PASSWORD' 'API_CREDENTIAL' 'SERVER' 'DATABASE' 'CREDIT_CARD' 'MEMBERSHIP' 'PASSPORT' 'SOFTWARE_LICENSE' 'OUTDOOR_LICENSE' 'SECURE_NOTE' 'WIRELESS_ROUTER' 'BANK_ACCOUNT' 'DRIVER_LICENSE' 'IDENTITY' 'REWARD_PROGRAM' 'DOCUMENT' 'EMAIL_ACCOUNT' 'SOCIAL_SECURITY_NUMBER' 'CUSTOM')}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"favorite\": {{faker 'random.boolean'}},\n  \"id\": \"\",\n  \"lastEditedBy\": \"\",\n  \"state\": \"{{oneOf (array 'ARCHIVED' 'DELETED')}}\",\n  \"tags\": [\n    \"\"\n  ],\n  \"title\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"urls\": [\n    {\n      \"href\": \"https://example.com\",\n      \"primary\": true\n    },\n    {\n      \"href\": \"https://example.org\"\n    }\n  ],\n  \"vault\": {\n    \"id\": \"\"\n  },\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "44e442a1-f193-423b-ba38-ad1ac258bed2",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "60db60b6-2135-400f-8542-00d37781bfdc",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Unauthorized access",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0041b005-df19-4928-b039-66a4e8542df7",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "27038b1b-43c5-442f-bb94-718d815f6f4d",
+      "documentation": "Update a subset of Item attributes",
+      "method": "patch",
+      "endpoint": "vaults/:vaultUuid/items/:itemUuid",
+      "responses": [
+        {
+          "uuid": "c2ff1dc9-0b8d-48d5-98a0-d2ddc664b323",
+          "body": "{\n  \"category\": \"{{oneOf (array 'LOGIN' 'PASSWORD' 'API_CREDENTIAL' 'SERVER' 'DATABASE' 'CREDIT_CARD' 'MEMBERSHIP' 'PASSPORT' 'SOFTWARE_LICENSE' 'OUTDOOR_LICENSE' 'SECURE_NOTE' 'WIRELESS_ROUTER' 'BANK_ACCOUNT' 'DRIVER_LICENSE' 'IDENTITY' 'REWARD_PROGRAM' 'DOCUMENT' 'EMAIL_ACCOUNT' 'SOCIAL_SECURITY_NUMBER' 'CUSTOM')}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"favorite\": {{faker 'random.boolean'}},\n  \"id\": \"\",\n  \"lastEditedBy\": \"\",\n  \"state\": \"{{oneOf (array 'ARCHIVED' 'DELETED')}}\",\n  \"tags\": [\n    \"\"\n  ],\n  \"title\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"urls\": [\n    {\n      \"href\": \"https://example.com\",\n      \"primary\": true\n    },\n    {\n      \"href\": \"https://example.org\"\n    }\n  ],\n  \"vault\": {\n    \"id\": \"\"\n  },\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK - Item updated. If no Patch operations were provided, Item is unmodified.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0e869585-6105-49cf-9680-553fa0b4cf1e",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bd5c7637-6771-4472-b7c1-4d949decb88f",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Unauthorized access",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "842e363c-a736-4134-acaa-42daffda69e8",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "61180c3c-0b3d-4cc7-87d5-2bdafcce5217",
+      "documentation": "Update an Item",
+      "method": "put",
+      "endpoint": "vaults/:vaultUuid/items/:itemUuid",
+      "responses": [
+        {
+          "uuid": "6970a4e7-1bf8-43ae-8e07-ea84636a0b80",
+          "body": "{\n  \"category\": \"{{oneOf (array 'LOGIN' 'PASSWORD' 'API_CREDENTIAL' 'SERVER' 'DATABASE' 'CREDIT_CARD' 'MEMBERSHIP' 'PASSPORT' 'SOFTWARE_LICENSE' 'OUTDOOR_LICENSE' 'SECURE_NOTE' 'WIRELESS_ROUTER' 'BANK_ACCOUNT' 'DRIVER_LICENSE' 'IDENTITY' 'REWARD_PROGRAM' 'DOCUMENT' 'EMAIL_ACCOUNT' 'SOCIAL_SECURITY_NUMBER' 'CUSTOM')}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"favorite\": {{faker 'random.boolean'}},\n  \"id\": \"\",\n  \"lastEditedBy\": \"\",\n  \"state\": \"{{oneOf (array 'ARCHIVED' 'DELETED')}}\",\n  \"tags\": [\n    \"\"\n  ],\n  \"title\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"urls\": [\n    {\n      \"href\": \"https://example.com\",\n      \"primary\": true\n    },\n    {\n      \"href\": \"https://example.org\"\n    }\n  ],\n  \"vault\": {\n    \"id\": \"\"\n  },\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "253de284-f036-4ee3-afb2-273453b267ab",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Unable to create item due to invalid input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d1a2c26a-d3a0-41a7-acf7-a72d5806e4b8",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "44d47130-01b5-4d9d-a7d3-b04cc6e06353",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Unauthorized access",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e73ebe5-171c-4837-be66-e94fefa9da87",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cad851d8-b166-46f9-ba07-1cba7ed09c41",
+      "documentation": "Get all the files inside an Item",
+      "method": "get",
+      "endpoint": "vaults/:vaultUuid/items/:itemUuid/files",
+      "responses": [
+        {
+          "uuid": "968464d2-b284-4f78-8d6f-6841f22e5bef",
+          "body": "[\n  {\n    \"content\": \"VGhlIGZ1dHVyZSBiZWxvbmdzIHRvIHRoZSBjdXJpb3VzLgo=\",\n    \"content_path\": \"v1/vaults/ionaiwtdvgclrixbt6ztpqcxnq/items/p7eflcy7f5mk7vg6zrzf5rjjyu/files/6r65pjq33banznomn7q22sj44e/content\",\n    \"id\": \"6r65pjq33banznomn7q22sj44e\",\n    \"name\": \"foo.txt\",\n    \"size\": 35\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4143bcd2-441f-459f-8e13-5ee275d849b0",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f9d312a3-0216-4b12-b4ed-9b4564c01ec4",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bd499731-6e6b-44a8-9019-0e5c7508277f",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 413,
+          "label": "File content too large to display",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d3709fa7-3bd9-4171-8dd4-1db8b4e67a2d",
+      "documentation": "Get the details of a File",
+      "method": "get",
+      "endpoint": "vaults/:vaultUuid/items/:itemUuid/files/:fileUuid",
+      "responses": [
+        {
+          "uuid": "d3962ad6-806e-499f-9dcd-dba35a9ce223",
+          "body": "{\n  \"content\": \"VGhlIGZ1dHVyZSBiZWxvbmdzIHRvIHRoZSBjdXJpb3VzLgo=\",\n  \"content_path\": \"v1/vaults/ionaiwtdvgclrixbt6ztpqcxnq/items/p7eflcy7f5mk7vg6zrzf5rjjyu/files/6r65pjq33banznomn7q22sj44e/content\",\n  \"id\": \"6r65pjq33banznomn7q22sj44e\",\n  \"name\": \"foo.txt\",\n  \"size\": 35\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dfb487a4-c29b-4ece-b924-51ff86c7e2ee",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d71446f3-f7d2-4ae8-964c-d64c7df8d112",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Unauthorized access",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aa36681d-3f3d-485c-b1ab-b8f023037bdb",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "File not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d739993d-1637-4729-8cc1-67281fd07008",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 413,
+          "label": "File content too large to display",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cd822adb-9a91-42ed-b598-63dd85bf4161",
+      "documentation": "Get the content of a File",
+      "method": "get",
+      "endpoint": "vaults/:vaultUuid/items/:itemUuid/files/:fileUuid/content",
+      "responses": [
+        {
+          "uuid": "8f6ba6e4-6b3e-4819-90d5-0665e51eccb1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/octet-stream"
+            },
+            {
+              "key": "Content-Disposition",
+              "value": ""
+            },
+            {
+              "key": "Content-Length",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5f4d54ff-4f77-49de-9202-68d22e71c181",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Invalid or missing token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4b94d5b9-9c96-4f9a-b727-0cdd0ad59725",
+          "body": "{\n  \"message\": \"\",\n  \"status\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "File not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  }
+}

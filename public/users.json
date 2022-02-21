@@ -1,0 +1,62 @@
+[
+    {
+        "id_user": 1,
+        "username": "dkirrage0",
+        "password": "7okXiKT5",
+        "employee_id": 9
+    },
+    {
+        "id_user": 2,
+        "username": "ckenyon1",
+        "password": "bgIYwhA",
+        "employee_id": 2
+    },
+    {
+        "id_user": 3,
+        "username": "ykebell2",
+        "password": "nT8uGODvfkwZ",
+        "employee_id": 4
+    },
+    {
+        "id_user": 4,
+        "username": "ezanardii3",
+        "password": "safQY8grL",
+        "employee_id": 10
+    },
+    {
+        "id_user": 5,
+        "username": "dleadbeater4",
+        "password": "XW36d404",
+        "employee_id": 8
+    },
+    {
+        "id_user": 6,
+        "username": "awoodrough5",
+        "password": "x9UlXpYR",
+        "employee_id": 10
+    },
+    {
+        "id_user": 7,
+        "username": "rbrend6",
+        "password": "qO3EcFCD",
+        "employee_id": 2
+    },
+    {
+        "id_user": 8,
+        "username": "npriestner7",
+        "password": "XOkAeuff",
+        "employee_id": 10
+    },
+    {
+        "id_user": 9,
+        "username": "egair8",
+        "password": "S01cvUCNt",
+        "employee_id": 9
+    },
+    {
+        "id_user": 10,
+        "username": "mhavercroft9",
+        "password": "sRn7WpS",
+        "employee_id": 5
+    }
+]
