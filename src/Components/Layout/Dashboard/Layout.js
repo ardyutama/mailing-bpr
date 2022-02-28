@@ -139,7 +139,7 @@ export default function MiniDrawer(props) {
               </DrawerHeader>
               <Divider />
               <List>
-                  <Link to="/" underline="none">
+                  <Link to="/dashboard/inbox" underline="none">
                       <ListItem button key="Inbox">
                           <ListItemIcon>
                               <InboxIcon />
@@ -147,7 +147,7 @@ export default function MiniDrawer(props) {
                           <ListItemText>Inbox</ListItemText>
                       </ListItem>
                   </Link>
-                  <Link to="/outward" underline="none">
+                  <Link to="/dashboard/outward" underline="none">
                       <ListItem button key="Outward">
                           <ListItemIcon>
                               <DraftsIcon />

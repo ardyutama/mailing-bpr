@@ -1,39 +1,29 @@
-import {
-    Box,
-    Button,
-    Card,
-    CardMedia,
-    Paper,
-    Stack,
-    TextField,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Card, Stack, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-// import Users_data from "../../_mocks_/users.json";
 import axios from "axios";
-
+import { LOGIN_API } from "../../constant/url";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 export default function Login(params) {
-    // const [value, setValue] = useState({
-    //     name: "",
-    //     password: "",
-    // });
-    const [username, setUsername] = useState("");
+    const navigate = useNavigate();
+    const [NIP, setNIP] = useState("");
     const [password, setPassword] = useState("");
-
-    const [Users, setUsers] = useState([]);
     const handleLogin = () => {
-        console.log(username,password);
+        let inOneHours = new Date(new Date().getTime() + 60 * 60 * 1000);
         axios
-            .post(
-                // "https://my.api.mockaroo.com/users.json?key=e6230540&__method=POST"
-                "http://127.0.0.1:3001/login",
-                {
-                    username: username,
-                    password: password,
-                }
-            )
+            .post(LOGIN_API, {
+                NIP: NIP,
+                password: password,
+            })
             .then((res) => {
                 console.log(res);
+                let token = res.data.token;
+                let id = res.data.data.employee_id;
+
+                Cookies.set('token', token,{expires: inOneHours})
+                Cookies.set("id", id, { expires: inOneHours });
+                // history.push('')
+                navigate("/dashboard/inbox");
             })
             .catch((err) => {
                 console.log(err);
@@ -68,39 +58,43 @@ export default function Login(params) {
                                 flexDirection: "column",
                             }}
                         >
-                            <form onSubmit={handleLogin}>
-                                <Stack spacing={4} sx={{ width: "1" }}>
-                                    <TextField
-                                        id="username"
-                                        variant="outlined"
-                                        label="Username"
-                                        value={username}
-                                        onChange={(e) => {
-                                            setUsername(e.target.value);
-                                        }}
-                                    />
-                                    <TextField
-                                        id="Password"
-                                        variant="outlined"
-                                        label="Password"
-                                        type="password"
-                                        value={password}
-                                        autoComplete="current-password"
-                                        onChange={(e) => {
-                                            setPassword(e.target.value);
-                                        }}
-                                    />
-                                </Stack>
-                                <Button
-                                    variant="contained"
-                                    sx={{ mt: 2 }}
-                                    type="submit"
-                                    onClick={handleLogin}
-                                    to = "/dashboard/inbox"
-                                >
-                                    Sign in
-                                </Button>
-                            </form>
+                            {/* <form onSubmit={handleLogin}> */}
+                            {/* <form> */}
+                            {/* @csrf <!-- {{ csrf_field() }} --> */}
+                            <Stack spacing={4} sx={{ width: "1" }}>
+                                <TextField
+                                    id="username"
+                                    variant="outlined"
+                                    label="NIP"
+                                    value={NIP}
+                                    onChange={(e) => {
+                                        setNIP(e.target.value);
+                                    }}
+                                />
+                                <TextField
+                                    id="Password"
+                                    variant="outlined"
+                                    label="Password"
+                                    type="password"
+                                    value={password}
+                                    autoComplete="current-password"
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                />
+                            </Stack>
+                            {/* <Link to="/dashboard/inbox"> */}
+                            <Button
+                                variant="contained"
+                                sx={{ mt: 2 }}
+                                type="submit"
+                                onClick={handleLogin}
+                                // to="/dashboard/inbox"
+                            >
+                                Sign in
+                            </Button>
+                            {/* </Link> */}
+                            {/* </form> */}
                         </Box>
                     </Box>
                 </Card>

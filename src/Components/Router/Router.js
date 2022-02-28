@@ -13,16 +13,7 @@ import Login from "../Pages/Login/login";
 import SignInLayout from "../Layout/SignInLayout";
 
 export default function Router() {
-    // return (
-    // <BrowserRouter>
-    //         <LayoutComponent>
-    //             <Routes>
-    //                 <Route path="/" element={<Login />}></Route>
-    //                 <Route path="/inbox" element={<Inbox />}> /</Route>
-    //                 <Route path="outward" element={<Outward />}></Route>
-    //             </Routes>
-    //         </LayoutComponent>
-    //     </BrowserRouter>);
+
     // FIXME: menambah router untuk passing id akun yang login
     let element = useRoutes([
         {

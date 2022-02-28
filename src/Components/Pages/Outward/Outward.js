@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import SearchBar from "../../Global/SearchBar";
 import Box from "@mui/material/Box";
 import {
@@ -13,6 +13,8 @@ import Pagination from "@mui/material/Pagination";
 import Modal from "../../Global/CreateOutwardModal";
 import { Button, Card } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 function CustomPagination() {
     const apiRef = useGridApiContext();
@@ -29,19 +31,71 @@ function CustomPagination() {
     );
 }
 
+ 
 const Outward = () => {
     const [open, setOpen] = React.useState(false);
-    const { data } = useDemoData({
-        dataSet: "Commodity",
-        rowLength: 100,
-        maxColumns: 6,
-    });
+    const [data,setData]= useState([]);
     const handleClickOpen = (params) => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
+    useEffect(() => {
+        const getId = Cookies.get("id");
+        const fetchData = async () => {
+            await axios
+                .get(`http://127.0.0.1:8000/api/outward/$getId`)
+                .then((res) => {
+                    console.log(res);
+                    let data = res.data.data;
+                    // setData({
+                    //     tgl_surat_masuk: data.tgl_surat_masuk,
+                    //     perihal: data.perihal,
+                    //     tipe_surat_id: data.tipe_surat_id,
+                    //     sifat_surat: data.sifat_surat,
+                    //     pengirim_surat: data.pengirim_surat,
+                    //     penerima_surat: data.penerima_surat,
+                    // });
+                    setData(data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        fetchData();
+        // console.log(data);
+    }, []);
+
+    const columns = [
+        {
+            field: "sifat_surat",
+            headerName: "Sifat Surat",
+        },
+        {
+            field: "tipe_surat_id",
+            headerName: "Tipe Surat",
+            width: 150,
+        },
+
+        {
+            field: "pengirim_surat",
+            headerName: "Pengirim",
+        },
+        {
+            field: "penerima_surat",
+            headerName: "Penerima",
+        },
+        {
+            field: "perihal",
+            headerName: "Perihal",
+            flex: 1,
+        },
+        {
+            field: "tgl_surat_keluar",
+            headerName: "tanggal",
+        },
+    ];
     return (
         <Box sx={{ flexDirection: "column", gap: 2, display: "flex" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -57,7 +111,7 @@ const Outward = () => {
             </div>
             <Card>
                 <Box sx={{ height: 400, width: "100%" }}>
-                {/* TODO: Benerin Fetch  */}
+                    {/* TODO: Benerin Fetch  */}
                     <DataGrid
                         onRowClick={handleClickOpen}
                         pagination
@@ -66,7 +120,8 @@ const Outward = () => {
                         components={{
                             Pagination: CustomPagination,
                         }}
-                        {...data}
+                        columns={columns}
+                        rows={data}
                     />
                 </Box>
             </Card>
