@@ -1,16 +1,17 @@
 import { Box, Button, Card, Stack, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { LOGIN_API } from "../../constant/url";
+import { LOGIN_API, SHOW_EMPLOYEE } from "../../constant/url";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 export default function Login(params) {
     const navigate = useNavigate();
     const [NIP, setNIP] = useState("");
     const [password, setPassword] = useState("");
-    const handleLogin = () => {
+    
+    const handleLogin = async () => {
         let inOneHours = new Date(new Date().getTime() + 60 * 60 * 1000);
-        axios
+        await axios
             .post(LOGIN_API, {
                 NIP: NIP,
                 password: password,
@@ -18,11 +19,11 @@ export default function Login(params) {
             .then((res) => {
                 console.log(res);
                 let token = res.data.token;
-                let id = res.data.data.employee_id;
-
-                Cookies.set('token', token,{expires: inOneHours})
-                Cookies.set("id", id, { expires: inOneHours });
-                // history.push('')
+                let id = res.data.data.id;
+                // let id = res.data.data.employee_id;
+                Cookies.set("token", token, { expires: inOneHours });
+                Cookies.set("id",id)
+                // saveEmployee(id);
                 navigate("/dashboard/inbox");
             })
             .catch((err) => {
@@ -89,7 +90,6 @@ export default function Login(params) {
                                 sx={{ mt: 2 }}
                                 type="submit"
                                 onClick={handleLogin}
-                                // to="/dashboard/inbox"
                             >
                                 Sign in
                             </Button>

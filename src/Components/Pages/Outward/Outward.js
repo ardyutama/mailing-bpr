@@ -15,6 +15,7 @@ import { Button, Card } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { SHOW_OUTWARD } from "../../constant/url";
 
 function CustomPagination() {
     const apiRef = useGridApiContext();
@@ -42,10 +43,10 @@ const Outward = () => {
         setOpen(false);
     };
     useEffect(() => {
-        const getId = Cookies.get("id");
+        // const getId = Cookies.get("id");
         const fetchData = async () => {
             await axios
-                .get(`http://127.0.0.1:8000/api/outward/$getId`)
+                .get(SHOW_OUTWARD(Cookies.get("id")))
                 .then((res) => {
                     console.log(res);
                     let data = res.data.data;

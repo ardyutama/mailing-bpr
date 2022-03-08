@@ -24,7 +24,7 @@ const Modal = (props) => {
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={onClose}>
+                <Button autoFocus onClick={onClose} type="submit" id="form-dialog">
                     Kirim Untuk Mengajukan
                 </Button>
             </DialogActions>
