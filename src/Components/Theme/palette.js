@@ -2,17 +2,17 @@ import { grey } from '@mui/material/colors';
 import {alpha} from '@mui/material/styles';
 
 const GREY = {
-    100: "#FFFFFF",
-    200: "#F5F6FB",
-    300: "#E7EAF4",
-    400: "#C4C9D9",
-    500: "#AFB4C5",
-    600: "#767B87",
-    700: "#52555E",
-    800: "#262222",
+    100: "#F9F9FA",
+    200: "#EDEEEE",
+    300: "#DFE1E2",
+    400: "#D1D3D5",
+    500: "#C1C4C7",
+    600: "#AFB3B7",
+    700: "#9BA0A5",
+    800: "#384047",
 };
 const PRIMARY = {
-    main: "#41A6D9",
+    main: "#166FBC",
     pressed: "#195C80",
     border: "#B8D6E5",
     surface: "#E5F6FF",

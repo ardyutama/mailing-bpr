@@ -11,6 +11,7 @@ import {
 import palette from "./palette";
 import componentsOverride from "./overrides";
 import shape from "./shape";
+import typography from "./typography";
 
 ThemeConfig.propTypes = {
     children: PropTypes.node,
@@ -21,6 +22,7 @@ export default function ThemeConfig({ children }) {
         () => ({
             palette,
             shape,
+            typography
         }),
         []
     );

@@ -1,9 +1,10 @@
-import { Box, Button, Card, Stack, TextField } from "@mui/material";
+import { Box, Button, Card, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { LOGIN_API, SHOW_EMPLOYEE } from "../../constant/url";
+import { LOGIN_API} from "../../constant/url";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { fontSize } from "@mui/system";
 export default function Login(params) {
     const navigate = useNavigate();
     const [NIP, setNIP] = useState("");
@@ -20,7 +21,6 @@ export default function Login(params) {
                 console.log(res);
                 let token = res.data.token;
                 let id = res.data.data.id;
-                // let id = res.data.data.employee_id;
                 Cookies.set("token", token, { expires: inOneHours });
                 Cookies.set("id",id)
                 // saveEmployee(id);
@@ -53,16 +53,23 @@ export default function Login(params) {
                             sx={{
                                 m: 4,
                                 width: 400,
-                                alignItems: "center",
-                                justifyContent: "center",
                                 display: "flex",
                                 flexDirection: "column",
                             }}
                         >
-                            {/* <form onSubmit={handleLogin}> */}
-                            {/* <form> */}
-                            {/* @csrf <!-- {{ csrf_field() }} --> */}
-                            <Stack spacing={4} sx={{ width: "1" }}>
+                            <Typography
+                                sx={{ fontSize: 36, fontWeight: "bold" }}
+                                gutterBottom
+                            >
+                                Mailing BPR
+                            </Typography>
+                            <Typography
+                                sx={{ fontSize: 16, fontWeight: "bold" }}
+                                gutterBottom
+                            >
+                                Sign In
+                            </Typography>
+                            <Stack spacing={2} sx={{ width: 3/4 }}>
                                 <TextField
                                     id="username"
                                     variant="outlined"
@@ -83,18 +90,15 @@ export default function Login(params) {
                                         setPassword(e.target.value);
                                     }}
                                 />
-                            </Stack>
-                            {/* <Link to="/dashboard/inbox"> */}
                             <Button
                                 variant="contained"
-                                sx={{ mt: 2 }}
+                                sx={{ mt: 2, w: 1/2 }}
                                 type="submit"
                                 onClick={handleLogin}
                             >
                                 Sign in
                             </Button>
-                            {/* </Link> */}
-                            {/* </form> */}
+                            </Stack>
                         </Box>
                     </Box>
                 </Card>
