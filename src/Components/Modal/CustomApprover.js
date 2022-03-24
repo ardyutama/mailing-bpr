@@ -1,7 +1,7 @@
 import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import DetailForm from "../Forms/DetailForm";
+import DetailApprover from "../Forms/DetailApprover";
 
 const DetailModal = (props) => {
     const { open, onClose, data, title, ...other } = props;
@@ -16,7 +16,7 @@ const DetailModal = (props) => {
             <DialogTitle sx={{ m: 0, p: 2, bgcolor: "#EDEEEE" }}>
                 {title}
             </DialogTitle>
-            <DetailForm data={data} />
+            <DetailApprover dataRow={data} />
         </Dialog>
     );
 };

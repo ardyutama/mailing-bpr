@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { SHOW_ALL_EMPLOYEE } from "../constant/url";
 
-export default function useFetchAllUser(params) {
+export default function useFetchAllUser() {
     const [allUsers, setAllUsers] = React.useState([]);
     React.useEffect(() => {
         const fetchData = async () => {

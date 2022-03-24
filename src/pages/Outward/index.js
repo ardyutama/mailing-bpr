@@ -7,7 +7,7 @@ import CustomTable from "../../components/Table/CustomTable";
 
 const Outward = () => {
     const [open, setOpen] = React.useState(false);
-    const data = useFetchOutwards();
+    const {outwards,loading} = useFetchOutwards();
     const [dataRow,setDataRow] = React.useState([]);
 
     const handleClickOpen = (params) => {
@@ -48,9 +48,10 @@ const Outward = () => {
         <Box sx={{ flexDirection: "column", gap: 2, display: "flex" }}>
             <CustomTable
                 columns={columns}
-                rows={data}
+                rows={outwards}
                 onRowClick={handleClickOpen}
                 title="Nota Keluar"
+                loading={loading}
             />
             <DetailNota open={open} onClose={handleClose} data={dataRow}></DetailNota>
         </Box>

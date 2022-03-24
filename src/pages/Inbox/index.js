@@ -8,8 +8,8 @@ const Inbox = () => {
     //TODO: FETCH DATA YANG DIPASSING OLEH ID ROUTER UNTUK FILTER SURAT MASUK
     const [open, setOpen] = React.useState(false);
     const [dataRow, setDataRow] = useState([]);
-    const data = useFetchInbox();
-    console.log(data);
+    const {data,loading} = useFetchInbox();
+    // console.log(data);
     // TODO: passing dari inbox ke modal
     const handleClickOpen = (params) => {
         setDataRow(params.row);
@@ -45,10 +45,16 @@ const Inbox = () => {
             <CustomTable
                 columns={columns}
                 rows={data}
+                loading={loading}
                 onRowClick={handleClickOpen}
                 title="Nota Masuk"
             />
-            <Modal open={open} onClose={handleClose} title="Disposisi Nota" data={dataRow}></Modal>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                title="Disposisi Nota"
+                data={dataRow}
+            ></Modal>
         </Box>
     );
 };

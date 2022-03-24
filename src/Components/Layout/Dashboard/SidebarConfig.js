@@ -1,4 +1,4 @@
-import { MdInbox, MdOutgoingMail } from "react-icons/md";
+import { MdEmail, MdOutgoingMail } from "react-icons/md";
 import {FaClipboardCheck} from "react-icons/fa"
 const SidebarConfig = [
     // {
@@ -9,7 +9,7 @@ const SidebarConfig = [
     {
         title: "Nota Masuk",
         path: "/dashboard/inbox",
-        icon: <MdInbox size={24} />,
+        icon: <MdEmail size={24} />,
     },
     {
         title: "Nota Keluar",

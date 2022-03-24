@@ -12,7 +12,8 @@ import Cookies from "js-cookie";
 import { ContextUser } from "../../../context/ContextUser";
 import SidebarConfig from './SidebarConfig';
 import NavSection from './NavSection';
-import { GoDashboard } from "react-icons/go";
+import { MdDashboard } from "react-icons/md";
+import {GrMailOption} from "react-icons/gr";
 // import { Link } from "react-router-dom";
 const RenderContent = () => {
   const [open, setOpen] = React.useState(false);
@@ -40,9 +41,12 @@ const RenderContent = () => {
                 }}
             >
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                    <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                        Mailing BPR
-                    </Typography>
+                    <Box style={{ display: "flex", alignItems:"center", gap: 8 }}>
+                        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                            Mailing BPR
+                        </Typography>
+                        <GrMailOption size={24} color="blue" />
+                    </Box>
                     <Button
                         sx={{
                             py: 2,
@@ -61,7 +65,7 @@ const RenderContent = () => {
                     <Modal open={open} onClose={handleClose}></Modal>
                     <List component="nav">
                         <NavSection
-                            icon={<GoDashboard size={24} />}
+                            icon={<MdDashboard size={24} />}
                             title="Dashboard"
                         />
                         {SidebarConfig.map((value) => (

@@ -5,10 +5,10 @@ import { ContextUser } from "../context/ContextUser";
 
 export default function useFetchInbox(params) {
     const [data, setData] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
     const { user } = useContext(ContextUser);
-    // const getId = user.id;
-    // console.log(getId);
     React.useEffect(() => {
+        setLoading(true);
         const fetchData = async () => {
             await axios
                 .get(SHOW_APPROVER(user.id))
@@ -16,6 +16,7 @@ export default function useFetchInbox(params) {
                     console.log(res.data.data);
                     let data = res.data.data;
                     setData(data);
+                    setLoading(false);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -24,5 +25,5 @@ export default function useFetchInbox(params) {
         fetchData();
     }, []);
 
-    return data;
+    return {data,loading}
 }

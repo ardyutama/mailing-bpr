@@ -6,15 +6,9 @@ import Modal from "../../components/Modal/CustomApprover";
 import { Button } from "@mui/material";
 
 const Approve = () => {
-    //TODO: FETCH DATA YANG DIPASSING OLEH ID ROUTER UNTUK FILTER SURAT MASUK
     const [open, setOpen] = React.useState(false);
     const [dataRow, setDataRow] = useState([]);
-    const data = useFetchApprover();
-    // TODO: passing dari inbox ke modal
-    const handleClickOpen = (params) => {
-        setDataRow(params.row);
-        setOpen(true);
-    };
+    const {data,loading} = useFetchApprover();
     const columns = [
         {
             field: "no_nota",
@@ -42,39 +36,60 @@ const Approve = () => {
         },
         {
             field: "Action",
-            renderCell: () => (
-                <Button
-                    sx={{
-                        px: 2,
-                        borderRadius: 1.5,
-                        color: "#0F4C81",
-                        fontSize: 12,
-                        "&:hover": {
-                            bgcolor: "grey",
-                        },
-                    }}
-                    size="small"
-                    variant="outlined"
-                    onClick={handleClickOpen}
-                >
-                    Approve
-                </Button>
-            ),
+            renderCell: (params) => {
+                return params.row.isApproved ? (
+                    <Button
+                        sx={{
+                            px: 2,
+                            borderRadius: 1.5,
+                            color: "#0F4C81",
+                            fontSize: 12,
+                            "&:hover": {
+                                bgcolor: "grey",
+                            },
+                        }}
+                        size="small"
+                        variant="outlined"
+                        disabled
+                    >
+                        Approved
+                    </Button>
+                ) : (
+                    <Button
+                        sx={{
+                            px: 2,
+                            borderRadius: 1.5,
+                            color: "#0F4C81",
+                            fontSize: 12,
+                            "&:hover": {
+                                bgcolor: "grey",
+                            },
+                        }}
+                        size="small"
+                        variant="outlined"
+                        onClick={(event) => {
+                            setDataRow(params.row);
+                            setOpen(true);
+                        }}
+                    >
+                        Approve
+                    </Button>
+                );
+            },
         },
     ];
     const handleClose = () => {
         setOpen(false);
     };
-    // const rowData = useMemo(() => [...data], [data]);
     return (
         <Box sx={{ flexDirection: "column", gap: 2, display: "flex" }}>
             <CustomTable
                 columns={columns}
                 rows={data}
-                // onRowClick={handleClickOpen}
+                loading={loading}
                 title="Approver"
             />
-            <Modal open={open} onClose={handleClose} title="Detail Approver"></Modal>
+            <Modal open={open} onClose={handleClose} title="Detail Approver" data={dataRow}></Modal>
         </Box>
     );
 };

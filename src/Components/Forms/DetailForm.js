@@ -5,7 +5,7 @@ import {  Box, DialogContent } from "@mui/material";
 export default function DetailForm(params) {
     const {data} = params;
     // const [value, setValue] = React.useState(null);
-    console.log(data);
+    // console.log(data);
     return (
         <>
             <DialogContent

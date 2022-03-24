@@ -97,7 +97,7 @@ function CustomNoRowsOverlay() {
     );
 }
 
-const CustomTable = ({ columns, data, title, ...other }) => {
+const CustomTable = ({ columns, data, title,loading, ...other }) => {
     return (
         <>
             <h1>{title}</h1>
@@ -107,6 +107,7 @@ const CustomTable = ({ columns, data, title, ...other }) => {
                         pagination
                         pageSize={5}
                         rowsPerPageOptions={[5]}
+                        loading={loading}
                         components={{
                             Pagination: CustomPagination,
                             NoRowsOverlay: CustomNoRowsOverlay,
