@@ -46,3 +46,7 @@
   font-family: 'Inter', sans-serif;
   border-color: rgba(229, 231, 235, 0);
 }
+
+#root {
+  height: 100vh;
+}

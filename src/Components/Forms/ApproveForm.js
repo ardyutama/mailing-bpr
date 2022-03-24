@@ -1,9 +1,8 @@
 import React from "react";
-import {  Box, DialogContent } from "@mui/material";
-
+import { Box, Button, DialogActions, DialogContent } from "@mui/material";
 
 export default function DetailForm(params) {
-    const {data} = params;
+    const { data } = params;
     // const [value, setValue] = React.useState(null);
     console.log(data);
     return (
@@ -18,7 +17,14 @@ export default function DetailForm(params) {
                     justifyContent: "space-between",
                 }}
             >
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2,width:"50%" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2,
+                        width: "50%",
+                    }}
+                >
                     <div>
                         <p>No. Nota</p>
                         <h4>{data.no_nota}</h4>
@@ -40,13 +46,18 @@ export default function DetailForm(params) {
                     <div>
                         <p>Created By : </p>
                         <h4>
-                            {data.users_creator.first_name} {" "}
+                            {data.users_creator.first_name}{" "}
                             {data.users_creator.last_name}
                         </h4>
                         <p>{data.created_at}</p>
                     </div>
                 </Box>
             </DialogContent>
+            <DialogActions sx={{ m: 0, p: 2 }}>
+                <Button autoFocus >
+                    Approve
+                </Button>
+            </DialogActions>
         </>
     );
 }
