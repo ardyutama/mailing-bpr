@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
 import { Box, Button, DialogActions, DialogContent } from "@mui/material";
-import CustomTextField from "../TextField/CustomTextField";
-import useFetchDisposition from "../../hooks/useFetchDisposition";
+import CustomTextField from "../../TextField/CustomTextField";
+import useFetchDisposition from "../../../hooks/useFetchDisposition";
 import axios from "axios";
 import {
     CREATE_DISPOSITION_REGISTER,
     CREATE_DISPOSITION,
-} from "../../constant/url";
-import { ContextUser } from "../../context/ContextUser";
-import useFetchAllUser from "../../hooks/useFetchAllUsers";
-import CustomAutocomplete from "../../components/AutoComplete/CustomAutocomplete";
+} from "../../../constant/url";
+import { ContextUser } from "../../../context/ContextUser";
+import useFetchAllUser from "../../../hooks/useFetchAllUsers";
+import CustomAutocomplete from "../../AutoComplete/CustomAutocomplete";
+import ShowDisposisi from "./ShowDisposisi";
 export default function DetailForm(params) {
     const { format } = require("date-fns");
     const date = format(new Date(), "yyyy-MM-dd");
@@ -19,8 +20,9 @@ export default function DetailForm(params) {
     const dataFetch = useFetchDisposition(data.id);
     const employee = useFetchAllUser();
     const [disposisiTo, setDisposisiTo] = useState("");
-    // console.log(dataFetch[0]);
+    const [loading,setLoading] = useState(false); 
     const submitRegister = () => {
+        setLoading(true);
         const postForm = async () => {
             await axios
                 .post(CREATE_DISPOSITION_REGISTER, {
@@ -30,6 +32,7 @@ export default function DetailForm(params) {
                 })
                 .then((res) => {
                     console.log(res.data);
+                    setLoading(false);
                 });
         };
         postForm();
@@ -51,7 +54,16 @@ export default function DetailForm(params) {
         };
         postForm();
     };
-    // console.log(dataFetch);
+    const ButtonRegister = () => {
+        return (
+         <Box sx={{ textAlign: "center" }}>
+             <p>Disposisi belum terdaftar</p>
+             <Button type="submit" onClick={submitRegister} loading={loading}>
+                 Register Disposisi
+             </Button>
+         </Box>
+        );
+    }
     return (
         <>
             <DialogContent dividers>
@@ -105,32 +117,7 @@ export default function DetailForm(params) {
                             {dataFetch?.length ? (
                                 <>
                                     {dataFetch[0].disposition_mails?.length ? (
-                                        dataFetch[0].disposition_mails.map(
-                                            (list, i) => (
-                                                <Box>
-                                                    <h4>
-                                                        {list.creators.first_name 
-                                                        }{" "}
-                                                        {
-                                                            list.creators
-                                                                .last_name
-                                                        }
-                                                    </h4>
-                                                    <h5>
-                                                        {
-                                                            list.creators.roles
-                                                                .roles_name
-                                                        }{" "}
-                                                        {
-                                                            list.creators
-                                                                .divisions
-                                                                .divisions_name
-                                                        }
-                                                    </h5>
-                                                    <p>{list.comment}</p>
-                                                </Box>
-                                            )
-                                        )
+                                        <ShowDisposisi dataFetch={dataFetch[0]} />
                                     ) : (
                                         <h5>
                                             Ini Disposisi Pertama! <br></br>{" "}
@@ -168,15 +155,7 @@ export default function DetailForm(params) {
                                     />
                                 </>
                             ) : (
-                                <Box sx={{ textAlign: "center" }}>
-                                    <p>Disposisi belum terdaftar</p>
-                                    <Button
-                                        type="submit"
-                                        onClick={submitRegister}
-                                    >
-                                        Register Disposisi
-                                    </Button>
-                                </Box>
+                                <ButtonRegister />
                             )}
                         </Box>
                     </Box>

@@ -22,6 +22,7 @@ export const CREATE_DISPOSITION = `${BASE_URL}/dispositionMail`;
 export const SHOW_ALL_EMPLOYEE = `${BASE_URL}/user`;
 export const UPDATE_APPROVER = (user_id,nota_id) => `${BASE_URL}/approver/${user_id}/${nota_id}`;
 export const SHOW_INBOX = (user_id) => `${BASE_URL}/nota/masuk/${user_id}`;
+export const SHOW_PENDING_OUTWARDS = (user_id) => `${BASE_URL}/nota/pending/${user_id}`;
 export const SHOW_OUTWARD = (user_id) => `${BASE_URL}/nota/keluar/${user_id}`;
 export const SHOW_NEW_OUTWARDS = (user_id) => `${BASE_URL}/coba/keluar/${user_id}`;
 export const SHOW_DISPOSITION = (user_id) => `${BASE_URL}/disposition/${user_id}`;

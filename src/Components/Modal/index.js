@@ -1,10 +1,9 @@
 import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import DetailForm from "../Forms/DetailForm";
 
-const DetailModal = (props) => {
-    const { open, onClose,data,...other } = props;
+const Modal = (props) => {
+    const { open, onClose,title,form} = props;
     return (
         <Dialog
             open={open}
@@ -13,12 +12,12 @@ const DetailModal = (props) => {
             onClose={onClose}
             scroll="paper"
         >
-        <DialogTitle sx={{ m: 0, p: 2, bgcolor: "#EDEEEE" }}>
-                Detail Nota
-        </DialogTitle>
-            <DetailForm data={data}/>
+            <DialogTitle sx={{ m: 0, p: 2, bgcolor: "#EDEEEE" }}>
+                {title}
+            </DialogTitle>
+               {form}
         </Dialog>
     );
 };
 
-export default DetailModal;
+export default Modal;

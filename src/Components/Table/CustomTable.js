@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import {
     DataGrid,
@@ -11,6 +11,7 @@ import {
 import Pagination from "@mui/material/Pagination";
 import { Card } from "@mui/material";
 import { styled } from "@mui/system";
+import CustomTabs from "../Tabs";
 
 function CustomPagination() {
     const apiRef = useGridApiContext();
@@ -97,11 +98,20 @@ function CustomNoRowsOverlay() {
     );
 }
 
-const CustomTable = ({ columns, data, title,loading, ...other }) => {
+const CustomTable = ({ columns, data, title,loading,dataTabs,value,currentValue, ...other }) => {
+    // console.log(data);
+    const valueTabs = (params) => {
+        currentValue(params);
+    }
     return (
         <>
             <h1>{title}</h1>
             <Card>
+                <CustomTabs
+                    data={dataTabs}
+                    value={value}
+                    currentValue={valueTabs}
+                />
                 <Box sx={{ height: 400, width: "100%" }}>
                     <DataGrid
                         pagination

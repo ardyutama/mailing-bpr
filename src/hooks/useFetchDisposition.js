@@ -14,7 +14,7 @@ export default function useFetchDisposition(id) {
             });
         };
         fetchData();
-    }, [id]);
+    }, []);
 
     return disposition;
 }

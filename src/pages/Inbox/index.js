@@ -2,19 +2,25 @@ import React, { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import useFetchInbox from "../../hooks/useFetchInbox";
 import CustomTable from "../../components/Table/CustomTable";
-import Modal from "../../components/Modal/CustomDetailDisposisi";
+import Modal from "../../components/Modal";
+import DisposisiForm from "../../components/Forms/Disposisi/DisposisiForm";
+import InboxConfig from "../../components/Tabs/TabsConfig/inbox"
+// import Modal from "../../components/Modal/CustomDetailDisposisi";
 
 const Inbox = () => {
-    //TODO: FETCH DATA YANG DIPASSING OLEH ID ROUTER UNTUK FILTER SURAT MASUK
     const [open, setOpen] = React.useState(false);
     const [dataRow, setDataRow] = useState([]);
     const {data,loading} = useFetchInbox();
-    // console.log(data);
-    // TODO: passing dari inbox ke modal
+    const [value, setValue] = React.useState(0);
     const handleClickOpen = (params) => {
         setDataRow(params.row);
         setOpen(true);
     };
+
+    const valueTabs = (params) => {
+        setValue(params);
+    };
+    
     const columns = [
         {
             field: "no_nota",
@@ -46,14 +52,17 @@ const Inbox = () => {
                 columns={columns}
                 rows={data}
                 loading={loading}
+                dataTabs={InboxConfig}
                 onRowClick={handleClickOpen}
                 title="Nota Masuk"
+                value={value}
+                currentValue={valueTabs}
             />
             <Modal
                 open={open}
                 onClose={handleClose}
                 title="Disposisi Nota"
-                data={dataRow}
+                form={<DisposisiForm data={dataRow} />}
             ></Modal>
         </Box>
     );

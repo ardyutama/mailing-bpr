@@ -13,22 +13,13 @@ export const UserProvider = ({children}) => {
     // const data = useFetchUser();
     const [user, setUser] = useState([]);
     console.log(JSON.parse(localStorage.getItem("user")));
+    
     useEffect(()=> {
         const getData = JSON.parse(localStorage.getItem('user'));
         if (getData) {
             setUser(getData);
         }
     },[]);
-    //     {
-    //     id: "",
-    //     divisions_id: "",
-    //     first_name: "",
-    //     last_name: "",
-    //     roles_id: "",
-    // }
-    // localStorage.getItem('user')
-    // [localStorage.getItem('user')]
-    // );
 
     const login = (data) => {
         setUser({

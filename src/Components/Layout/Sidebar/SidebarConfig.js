@@ -1,11 +1,6 @@
 import { MdEmail, MdOutgoingMail } from "react-icons/md";
 import {FaClipboardCheck} from "react-icons/fa"
 const SidebarConfig = [
-    // {
-    //     title: "Dashboard",
-    //     path : "",
-    //     icon: <DraftsIcon />,
-    // },
     {
         title: "Nota Masuk",
         path: "/dashboard/inbox",

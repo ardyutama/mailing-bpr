@@ -2,24 +2,29 @@ import React from "react";
 import { Box, DialogContent,DialogActions,Button } from "@mui/material";
 import axios from "axios";
 import { UPDATE_APPROVER } from "../../constant/url";
+// import  {handleData} from "../../hooks/useFetchApprover"
 
 export default function DetailForm(params) {
-    const { dataRow } = params;
+    // console.log(handleData);
+    const { dataRow, onClose } = params;
     const { format } = require("date-fns");
     const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
     const data = dataRow.notas;
+    console.log('form approve');
+    
     const updateApprove = async () => {
-        await axios
+        const postApprover = await axios
             .post(UPDATE_APPROVER(dataRow.user_id,dataRow.nota_id), {
                 isApproved : 1,
                 approved_time : date,
             })
             .then((res) => {
                 console.log(res.data);
+                onClose();
             });
-    }
-    const handleApprove = () => {
-        updateApprove();
+
+            const newData = await postApprover.json();
+            // handleData(oldData => [...oldData,newData]);
     }
     return (
         <>
@@ -77,7 +82,7 @@ export default function DetailForm(params) {
                 </Box>
             </DialogContent>
             <DialogActions sx={{ m: 0, p: 2 }}>
-                <Button autoFocus onClick={handleApprove}>Approve</Button>
+                <Button autoFocus onClick={updateApprove}>Approve</Button>
             </DialogActions>
         </>
     );

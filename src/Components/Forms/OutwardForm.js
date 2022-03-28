@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Box, Button, DialogActions } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import { Backdrop, Box, Button, CircularProgress, DialogActions } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ContextUser } from "../../context/ContextUser";
 import { CREATE_OUTWARD,CREATE_APPROVER } from "../../constant/url";
@@ -10,8 +10,7 @@ import CustomTextField from "../TextField/CustomTextField";
 import CustomAutocomplete from "../AutoComplete/CustomAutocomplete";
 import useFetchOutward from "../../hooks/useFetchOutwards";
 
-export default function DetailForm(params) {
-    // const [value, setValue] = React.useState(null);
+export default function DetailForm({onClose}) {
     const { user } = useContext(ContextUser);
     const { format } = require("date-fns");
     const date = format(new Date(), "yyyy-MM-dd");
@@ -20,42 +19,50 @@ export default function DetailForm(params) {
     const [approverOne,setApproverOne] = useState("");
     const [approverTwo, setApproverTwo] = useState("");
     const [approverThree, setApproverThree] = useState("");
-    const approver = [approverOne,approverTwo,approverThree];
     const [kodeDepartement, setKodeDepartement] = useState("");
-    const [nota_id,setNota_id] = useState("");
+    const [loading,setLoading] = useState(false);
+    const approver = [approverOne,approverTwo,approverThree];
     const creator = user.id;
-    let totalNomer = useFetchOutward(user.division_id).length;
+    const {outwards} = useFetchOutward(user.division_id);
+    let totalNomer = outwards.length;
     const nomerNota = totalNomer + 1;
     const employee = useFetchAllUser();
-
     const submitForm = () => {
         submitNota();
-        submitApprover();
+        // submitApprover();
+        // onClose();
+        // setOpen(false);
     }
     const submitNota = async () => {
+        setLoading(true);
         await axios
             .post(CREATE_OUTWARD, {
                 tgl_nota: date,
                 perihal: perihal,
-                no_nota: nomerNota + "-" + kodeDepartement,
+                no_nota: nomerNota + kodeDepartement,
                 creator_id: creator,
                 receiver_id: receiver,
             })
             .then((res) => {
                 console.log(res);
-                setNota_id(res.data.id);
+                submitApprover(res.data.data.id);
             });
     };
-    const submitApprover = async () => {
-        approver.map((approver) => {
-            return axios
-                .post(CREATE_APPROVER, {
-                    user_id: approver,
-                    nota_id: nota_id,
-                })
-                .then((res) => {
-                    console.log(res);
-                })});
+    const submitApprover = async (id) => {
+        setTimeout(()=> {
+            approver.map((approver) => {
+                return axios
+                    .post(CREATE_APPROVER, {
+                        user_id: approver,
+                        nota_id: id,
+                    })
+                    .then((res) => {
+                        console.log(res);
+                        onClose();
+                    })
+                });
+        },5000);
+        setLoading(false);
     };
 
     const handleChange = (event) => {
@@ -218,6 +225,12 @@ export default function DetailForm(params) {
                         />
                     </Box>
                 </Box>
+                <Backdrop 
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </DialogContent>
             <DialogActions sx={{ m: 0, p: 2 }}>
                 <Button autoFocus type="submit" onClick={submitForm}>

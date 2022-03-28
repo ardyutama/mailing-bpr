@@ -1,14 +1,34 @@
-import React, { useMemo, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import useFetchApprover from "../../hooks/useFetchApprover";
 import CustomTable from "../../components/Table/CustomTable";
-import Modal from "../../components/Modal/CustomApprover";
+import Modal from "../../components/Modal";
+import DetailApprover from "../../components/Forms/DetailApprover";
 import { Button } from "@mui/material";
-
+import ApproverConfig from "../../components/Tabs/TabsConfig/approver";
 const Approve = () => {
     const [open, setOpen] = React.useState(false);
     const [dataRow, setDataRow] = useState([]);
-    const {data,loading} = useFetchApprover();
+    const {data,loading,dataPending,dataApproved} = useFetchApprover();
+    const [value, setValue] = React.useState(0);
+    const [fetch, setFetch] = React.useState([]);
+
+    useEffect(()=> {
+        setFetch(data);
+    },[data]);
+    
+    const valueTabs = (params) => {
+        console.log(params);
+        setValue(params);
+        // setFetch(data);
+        if (params === 0) {
+            setFetch(data);
+        } else if (params === 1) {
+            setFetch(dataPending);
+        } else {
+            setFetch(dataApproved);
+        }
+    };
     const columns = [
         {
             field: "no_nota",
@@ -85,11 +105,19 @@ const Approve = () => {
         <Box sx={{ flexDirection: "column", gap: 2, display: "flex" }}>
             <CustomTable
                 columns={columns}
-                rows={data}
+                rows={fetch}
                 loading={loading}
                 title="Approver"
+                dataTabs={ApproverConfig}
+                value={value}
+                currentValue={valueTabs}
             />
-            <Modal open={open} onClose={handleClose} title="Detail Approver" data={dataRow}></Modal>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                title="Detail Approver"
+                form={<DetailApprover dataRow={dataRow} onClose={handleClose}/>}
+            ></Modal>
         </Box>
     );
 };
